@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLB Hit Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  
+
+  <div id="control-container">
+    <select name="Stadium" id="stadium-select">
+      <option value="AZ">Chase Field</option>
+      <option value="ATL">Truist Field</option>
+      <option value="BAL">Camden Yards</option>
+      <option value="BOS">Fenway Park</option>
+      <option value="CHC">Wrigley Field</option>
+      <option value="CIN">Great American Blpk</option>
+      <option value="CLE">Progressive Field</option>
+      <option value="COL">Coors Field</option>
+      <option value="CWS">Gntd. Rate Field</option>
+      <option value="DET">Comerica Field</option>
+      <option value="HOU">Minute Maid Park</option>
+      <option value="KC">Kauffman Stadium</option>
+      <option value="LAA">Angel Stadium</option>
+      <option value="LAD">Dodger Stadium</option>
+      <option value="MIA">Load Depot Field</option>
+      <option value="MIL">Am Family Field</option>
+      <option value="MIN">Target Field</option>
+      <option value="NYM">Citi Field</option>
+      <option value="NYY">Yankee Stadium II</option>
+      <option value="OAK">Oakland</option>
+      <option value="PHI">Citizens Bank Park</option>
+      <option value="PIT">PNC Park</option>
+      <option value="SD">Petco Park</option>
+      <option value="SEA">T-Mobile Park</option>
+      <option value="SF">Oracle Park</option>
+      <option value="STL">Busch Stadium III</option>
+      <option value="TB">Tropicana Field</option>
+      <option value="TEX">Globe Life Field</option>
+      <option value="TOR">Rodgers Centre</option>
+      <option value="WSH">Nationals Field</option>
+    </select>
+    <div id="new-hit">New Hit</div>
+  </div>
+
+  <div id="search-parameters">
+    <h1>Filters</h1>
+    <div id="fields-container">
+      <div class="field-wrapper">
+        <label for="stadium-select-search">Stadium:</label>
+        <select name="Stadium" id="stadium-select-search" class="select-parameter">
+          <option value="void">Any</option>
+          <option value="0">Chase Field</option>
+          <option value="1">Truist Field</option>
+          <option value="2">Camden Yards</option>
+          <option value="3">Fenway Park</option>
+          <option value="4">Wrigley Field</option>
+          <option value="5">Great American Blpk</option>
+          <option value="6">Progressive Field</option>
+          <option value="7">Coors Field</option>
+          <option value="8">Gntd. Rate Field</option>
+          <option value="9">Comerica Field</option>
+          <option value="10">Minute Maid Park</option>
+          <option value="11">Kauffman Stadium</option>
+          <option value="12">Angel Stadium</option>
+          <option value="13">Dodger Stadium</option>
+          <option value="14">Load Depot Field</option>
+          <option value="15">Am Family Field</option>
+          <option value="16">Target Field</option>
+          <option value="17">Citi Field</option>
+          <option value="18">Yankee Stadium II</option>
+          <option value="19">Oakland</option>
+          <option value="20">Citizens Bank Park</option>
+          <option value="21">PNC Park</option>
+          <option value="22">Petco Park</option>
+          <option value="23">T-Mobile Park</option>
+          <option value="24">Oracle Park</option>
+          <option value="25">Busch Stadium III</option>
+          <option value="26">Tropicana Field</option>
+          <option value="27">Globe Life Field</option>
+          <option value="28">Rodgers Centre</option>
+          <option value="29">Nationals Field</option>
+        </select>
+      </div>
+
+      <div class="field-wrapper">
+        <label for="year-select-search">Year:</label>
+        <select name="Year" id="year-select-search" class="select-parameter">
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+          <option value="2018">2018</option>
+          <option value="2017">2017</option>
+          <option value="2016">2016</option>
+          <option value="2015">2015</option>
+          <option value="2014">2014</option>
+          <option value="2013">2013</option>
+          <option value="2012">2012</option>
+          <option value="2011">2011</option>
+        </select>
+      </div>
+
+      <!--
+      <div class="field-wrapper">
+        <label for="player-select-search-label">Player:</label>
+        <input list="player-select-search" name="Player" id="player-select-search-label" class="select-parameter">
+        <datalist name="Player" id="player-select-search" class="select-parameter">
+          <option value="-1">Any</option>
+        </datalist>
+      </div>-->
+
+      <div class="field-wrapper">
+        <label for="player-select-search">Player:</label>
+        <select list="player-select-search" name="Player" id="player-select-search" class="select-parameter">
+          <option value="-1">Any</option>
+        </select>
+      </div>
+
+      <div class="field-wrapper">
+        <label for="outcome-select-search">Outcome:</label>
+        <select name="Outcome" id="outcome-select-search" class="select-parameter">
+          <option value="single%7Cdouble%7Ctriple%7Chome%5C.%5C.run%7Cfield%5C.%5C.out%7C">Any</option>
+          <option value="single%7Cdouble%7Ctriple%7Chome%5C.%5C.run%7C">Hit</option>
+          <option value="field%5C.%5C.out%7C">Out</option>
+        </select>
+      </div>
+
+      <!--<div class="field-wrapper">
+        <label for="sort-select-search">Sort By:</label>
+        <select name="Outcome" id="sort-select-search" class="select-parameter">
+          <option value="single%7Cdouble%7Ctriple%7Chome%5C.%5C.run%7Cfield%5C.%5C.out%7C">Any</option>
+          <option value="single%7Cdouble%7Ctriple%7Chome%5C.%5C.run%7C">Hit</option>
+          <option value="field%5C.%5C.out%7C">Out</option>
+        </select>
+      </div>-->
+
+      <!--<div class="field-wrapper">
+        <label for="month-select-search">Month:</label>
+        <select name="Month" id="month-select-search" class="select-parameter">
+          <option value="single%7Cdouble%7Ctriple%7Chome%5C.%5C.run%7C">Hit</option>
+          <option value="field%5C.%5C.out%7C">Out</option>
+        </select>
+      </div> -->
+
+    </div>
+    <div id="search-button">Search</div>
+  </div>
+
+  <div id="loading-message">
+    <h1>Loading Data...</h1>
+  </div>
+
+  <div id="search-results">
+    <h1>Search Results</h1>
+  </div>
+
+  <canvas id="bg"></canvas>
+
+  <script src="papaparse.min.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+
+</html>
