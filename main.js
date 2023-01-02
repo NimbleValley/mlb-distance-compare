@@ -315,7 +315,6 @@ function statcast_search() {
 
   var year = parseInt(document.getElementById("year-select-search").value);
 
-  if()
   var playerId = parseInt(document.getElementById("player-select-search").value);
 
   var playerTeam = "";
