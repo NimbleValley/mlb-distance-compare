@@ -315,7 +315,8 @@ function statcast_search() {
 
   var year = parseInt(document.getElementById("year-select-search").value);
 
-  var playerId = playerRows[parseInt(document.getElementById("player-select-search").value)][10];
+  if()
+  var playerId = parseInt(document.getElementById("player-select-search").value);
 
   var playerTeam = "";
 
@@ -380,7 +381,7 @@ function statcast_search() {
           searchResults.style.display = "none";
           selectIndex(data, this.id);
         }
-        if (data.data[i][6] == playerId || playerId == -1) {
+        if (data.data[i][6] == playerRows[playerId][10] || playerId == -1) {
           if (data.data[i][52] > 300) {
             dataCount++;
             searchResults.appendChild(temp);
