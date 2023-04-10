@@ -315,7 +315,7 @@ function statcast_search() {
 
   var year = parseInt(document.getElementById("year-select-search").value);
 
-  var playerId = parseInt(document.getElementById("player-select-search").value);
+  var playerId = playerRows[parseInt(document.getElementById("player-select-search").value)][10];
 
   var playerTeam = "";
 
@@ -348,7 +348,8 @@ function statcast_search() {
 
   var outcomeSelect = document.getElementById("outcome-select-search").value;
 
-  Papa.parse(`https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=${outcomeSelect}&hfGT=R%7C&hfPR=&hfZ=&hfStadium=${stadiumIds[whichStadium]}&hfBBL=&hfNewZones=&hfPull=&hfC=&hfSea=${year}%7C&hfSit=&player_type=batter&hfOuts=&hfOpponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfMo=&hfTeam=${playerTeam}%7C&home_road=&hfRO=&position=&hfInfield=&hfOutfield=&hfInn=&hfBBT=fly%5C.%5C.ball%7Cline%5C.%5C.drive%7C&hfFlag=&metric_1=&group_by=name-date&min_pitches=0&min_results=0&min_pas=0&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc&min_abs=0&type=detals#results`, {
+  //${playerTeam}%7C
+  Papa.parse(`https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=${outcomeSelect}&hfGT=R%7C&hfPR=&hfZ=&hfStadium=${stadiumIds[whichStadium]}&hfBBL=&hfNewZones=&hfPull=&hfC=&hfSea=${year}%7C&hfSit=&player_type=batter&hfOuts=&hfOpponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfMo=&hfTeam=&home_road=&hfRO=&position=&hfInfield=&hfOutfield=&hfInn=&hfBBT=fly%5C.%5C.ball%7Cline%5C.%5C.drive%7C&hfFlag=&metric_1=&group_by=name-date&min_pitches=0&min_results=0&min_pas=0&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc&min_abs=0&type=detals#results`, {
     download: true,
     complete: function (results) {
       data = results;
@@ -380,7 +381,7 @@ function statcast_search() {
           searchResults.style.display = "none";
           selectIndex(data, this.id);
         }
-        if (data.data[i][6] == playerRows[playerId][10] || playerId == -1) {
+        if (data.data[i][6] == playerId || playerId == -1) {
           if (data.data[i][52] > 300) {
             dataCount++;
             searchResults.appendChild(temp);
