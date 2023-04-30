@@ -10,6 +10,9 @@ searchResults.style.display = "none";
 const loadingMessage = document.getElementById("loading-message");
 loadingMessage.style.display = "flex";
 
+const uploadHelp = document.getElementById("upload-help");
+uploadHelp.style.display = "none";
+
 /*     DATA */
 var data;
 var dataCells = [];
@@ -21,6 +24,10 @@ scene.background = (background);
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100000);
 camera.position.setZ(30);
+
+var playerId;
+var year;
+var playerTeam;
 
 //HDRI
 new RGBELoader()
@@ -298,7 +305,7 @@ document.getElementById("new-hit").addEventListener("click", function () {
 });
 
 function statcast_search() {
-  loadingMessage.style.display = "flex";
+  uploadHelp.style.display = "flex";
 
   //Remove old curve & Landing
   scene.remove(scene.getObjectByName("curve"));
@@ -313,11 +320,11 @@ function statcast_search() {
     whichStadium = parseInt(document.getElementById("stadium-select-search").value);
   }
 
-  var year = parseInt(document.getElementById("year-select-search").value);
+  year = parseInt(document.getElementById("year-select-search").value);
 
-  var playerId = playerRows[parseInt(document.getElementById("player-select-search").value)][10];
+  playerId = playerRows[parseInt(document.getElementById("player-select-search").value)][10];
 
-  var playerTeam = "";
+  playerTeam = "";
 
 
   if(playerId != -1) {
@@ -347,9 +354,17 @@ function statcast_search() {
   searchResults.appendChild(title);
 
   var outcomeSelect = document.getElementById("outcome-select-search").value;
+  window.open(`https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=${outcomeSelect}&hfGT=R%7C&hfPR=&hfZ=&hfStadium=${stadiumIds[whichStadium]}&hfBBL=&hfNewZones=&hfPull=&hfC=&hfSea=${year}%7C&hfSit=&player_type=batter&hfOuts=&hfOpponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfMo=&hfTeam=&home_road=&hfRO=&position=&hfInfield=&hfOutfield=&hfInn=&hfBBT=fly%5C.%5C.ball%7Cline%5C.%5C.drive%7C&hfFlag=&metric_1=&group_by=name-date&min_pitches=0&min_results=0&min_pas=0&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc&min_abs=0&type=detals#results`);
+}
 
+document.getElementById("csv-file").addEventListener("change", parseCSV, false);
   //${playerTeam}%7C
-  Papa.parse(`https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=${outcomeSelect}&hfGT=R%7C&hfPR=&hfZ=&hfStadium=${stadiumIds[whichStadium]}&hfBBL=&hfNewZones=&hfPull=&hfC=&hfSea=${year}%7C&hfSit=&player_type=batter&hfOuts=&hfOpponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfMo=&hfTeam=&home_road=&hfRO=&position=&hfInfield=&hfOutfield=&hfInn=&hfBBT=fly%5C.%5C.ball%7Cline%5C.%5C.drive%7C&hfFlag=&metric_1=&group_by=name-date&min_pitches=0&min_results=0&min_pas=0&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc&min_abs=0&type=detals#results`, {
+function loadCSV(evt) {
+}
+
+function parseCSV(str) {
+  uploadHelp.style.display = "none";
+  Papa.parse(document.querySelector('#csv-file').files[0], {
     download: true,
     complete: function (results) {
       data = results;

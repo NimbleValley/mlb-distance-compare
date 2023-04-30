@@ -68,6 +68,20 @@ select:hover {
   justify-content: space-around;
 }
 
+#upload-help {
+  position: fixed;
+  width: 95vw;
+  height: 95vh;
+  background-color: rgb(43, 39, 39);
+  z-index: 1000;
+  left: 2.5vw;
+  top: 2.5vh;
+  border: 2px beige solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 #search-parameters {
   position: fixed;
   width: 90vw;
@@ -153,6 +167,21 @@ label {
 h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 7.5vh;
+  text-align: center;
+  transition: background-color 0.25s, color 0.25s;
+  color: beige;
+  background-color: rgb(27, 27, 26);
+  padding: 1vw;
+  border: 2px beige solid;
+  width: fit-content;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 3vh;
   text-align: center;
   transition: background-color 0.25s, color 0.25s;
   color: beige;
