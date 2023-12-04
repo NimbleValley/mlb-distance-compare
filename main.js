@@ -29,16 +29,22 @@ var playerId;
 var year;
 var playerTeam;
 
+const playerTextSearch = document.getElementById("player-text-search");
+playerTextSearch.addEventListener("change", updatePlayerSelect);
+
+const playerSelectSearch = document.getElementById("player-select-search");
+var playerRows;;
+
 //HDRI
 new RGBELoader()
-  .load('kloppenheim_06_puresky_4k.hdr', function (texture) {
+  .load('textures/syferfontein_0d_clear_puresky_4k.hdr', function (texture) {
 
     texture.mapping = THREE.EquirectangularReflectionMapping;
 
     //scene.background = texture;
-    scene.environment = texture;
+    scene.background = texture;
 
-    renderer.render(scene, camera);
+    setUpStadium();
   });
 
 //Renderer
@@ -46,9 +52,6 @@ const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
   antialias: true
 });
-
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -75,17 +78,20 @@ const loader = new GLTFLoader();
 var abb = "AZ";
 
 var stadium;
-loader.load(`models/Stadium_${abb}.glb`, function (model) {
-  stadium = model.scene;
-  stadium.castShadow = true;
-  stadium.receiveShadow = true;
-  stadium.name = "stadium-mlb"
-  scene.add(stadium);
-  renderer.render(scene, camera);
-  loadingMessage.style.display = "none";
-});
 
-const light = new THREE.AmbientLight(0xffffff, 5);
+function setUpStadium() {
+  loader.load(`models/Stadium_${abb}.glb`, function (model) {
+    stadium = model.scene;
+    stadium.castShadow = true;
+    stadium.receiveShadow = true;
+    stadium.name = "stadium-mlb";
+    scene.add(stadium);
+    renderer.render(scene, camera);
+    loadingMessage.style.display = "none";
+  });
+}
+
+const light = new THREE.AmbientLight(0xffffff, 12);
 light.position.y = 10;
 
 scene.add(light);
@@ -93,9 +99,6 @@ scene.add(light);
 //1 foot is 19.4 units in 3.js
 const SCALE = 19.4 / 90;
 const DISTANCE_SCALE = 182 / 128;
-
-//Mathy Stuff
-var moving = false;
 
 //Distance & Height when batted
 var initialHeight = 2.23;
@@ -152,9 +155,7 @@ var stadiumIds = [
   /*Tor*/ "14%7C",
   /*Wsh*/ "3309%7C",
   /*None*/ ""
-]
-
-var playerRows;
+];
 
 Papa.parse("player-map.csv", {
   download: true,
@@ -164,7 +165,7 @@ Papa.parse("player-map.csv", {
       var temp = document.createElement("option");
       temp.value = i;
       temp.innerText = results.data[i][1];
-      document.getElementById("player-select-search").append(temp);
+      playerSelectSearch.append(temp);
     }
   }
 });
@@ -225,45 +226,8 @@ function getHit() {
   scene.add(curveObject);
 }
 
-
-
-
 function animate() {
   requestAnimationFrame(animate);
-
-  /*camera.position.x = ball.position.x/4;
-  camera.position.y = ball.position.y +4;
-  camera.position.z = ball.position.z/2 + 10;
-
-  camera.lookAt(ball.position);*/
-
-  /*if (moving) {
-    camera.lookAt(ball.position);
-
-    ball.position.z -= (launch_speed_x * Math.cos(convert(spray))) / 10;
-    ball.position.x -= (launch_speed_x * Math.sin(convert(spray))) / 10;
-    ball.position.y += launch_speed_y / 10;
-    launch_speed_y -= gravity / 10;
-
-    curve.points.push(new THREE.Vector3(ball.position.x, ball.position.y, ball.position.z));
-  }
-
-  //Done, create arc
-  if (ball.position.y < 0) {
-    moving = false;
-
-
-
-    // Create the final object to add to the scene
-    const points = curve.getPoints(50);
-    const curveGeometry = new THREE.BufferGeometry().setFromPoints(points);
-
-    const curveObject = new THREE.Line(curveGeometry, material);
-    scene.add(curveObject);
-
-
-    console.log(Math.sqrt(Math.pow(ball.position.x, 2) + Math.pow(ball.position.z, 2)));
-  }*/
 
   renderer.render(scene, camera);
 }
@@ -322,25 +286,25 @@ function statcast_search() {
 
   year = parseInt(document.getElementById("year-select-search").value);
 
-  playerId = playerRows[parseInt(document.getElementById("player-select-search").value)][10];
+  playerId = playerRows[parseInt(playerSelectSearch.value)][10];
 
   playerTeam = "";
 
 
-  if(playerId != -1) {
-    playerTeam = playerRows[parseInt(document.getElementById("player-select-search").value)][5];
+  if (playerId != -1) {
+    playerTeam = playerRows[parseInt(playerSelectSearch.value)][5];
     console.log("That player plays on " + playerTeam);
   }
 
-  if(playerTeam == "CHW") {
+  if (playerTeam == "CHW") {
     playerTeam = "CWS";
   }
 
-  if(playerTeam == "ARI") {
+  if (playerTeam == "ARI") {
     playerTeam = "AZ";
   }
 
-  if(playerTeam == "WAS") {
+  if (playerTeam == "WAS") {
     playerTeam = "WSH";
   }
 
@@ -358,7 +322,7 @@ function statcast_search() {
 }
 
 document.getElementById("csv-file").addEventListener("change", parseCSV, false);
-  //${playerTeam}%7C
+//${playerTeam}%7C
 function loadCSV(evt) {
 }
 
@@ -416,7 +380,7 @@ function selectIndex(results, index) {
   console.log(results.data[index]);
   abb = results.data[index][19];
   swapStadium(false);
-  initialHeight = results.data[index][30] * DISTANCE_SCALE*3;
+  initialHeight = results.data[index][30] * DISTANCE_SCALE * 3;
   hitDistance = results.data[index][52] * DISTANCE_SCALE;
   hc_x = results.data[index][37];
   hc_y = results.data[index][38];
@@ -428,7 +392,11 @@ function selectIndex(results, index) {
 
 document.getElementById("search-button").addEventListener("click", function () {
   statcast_search();
-})
+});
+
+document.getElementById("cancel-button").addEventListener("click", function () {
+  cancelSearch();
+});
 
 window.addEventListener('resize', () => {
 
@@ -439,4 +407,20 @@ window.addEventListener('resize', () => {
   // Update renderer
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-})
+});
+
+function updatePlayerSelect() {
+  playerSelectSearch.replaceChildren();
+  for (var i = 1; i < playerRows.length; i++) {
+    if(playerRows[i][1].toLowerCase().includes(playerTextSearch.value.toLowerCase())) {
+      var temp = document.createElement("option");
+      temp.value = i;
+      temp.innerText = playerRows[i][1];
+      playerSelectSearch.append(temp);
+    }
+  }
+}
+
+function cancelSearch() {
+  searchParameters.style.display = "none";
+}

@@ -10,40 +10,40 @@
 </head>
 
 <body>
-  
+
 
   <div id="control-container">
     <select name="Stadium" id="stadium-select">
-      <option value="AZ">Chase Field</option>
-      <option value="ATL">Truist Field</option>
-      <option value="BAL">Camden Yards</option>
-      <option value="BOS">Fenway Park</option>
-      <option value="CHC">Wrigley Field</option>
-      <option value="CIN">Great American Blpk</option>
-      <option value="CLE">Progressive Field</option>
-      <option value="COL">Coors Field</option>
-      <option value="CWS">Gntd. Rate Field</option>
-      <option value="DET">Comerica Field</option>
-      <option value="HOU">Minute Maid Park</option>
-      <option value="KC">Kauffman Stadium</option>
-      <option value="LAA">Angel Stadium</option>
-      <option value="LAD">Dodger Stadium</option>
-      <option value="MIA">Load Depot Field</option>
       <option value="MIL">Am Family Field</option>
-      <option value="MIN">Target Field</option>
-      <option value="NYM">Citi Field</option>
-      <option value="NYY">Yankee Stadium II</option>
-      <option value="OAK">Oakland</option>
-      <option value="PHI">Citizens Bank Park</option>
-      <option value="PIT">PNC Park</option>
-      <option value="SD">Petco Park</option>
-      <option value="SEA">T-Mobile Park</option>
-      <option value="SF">Oracle Park</option>
+      <option value="LAA">Angel Stadium</option>
       <option value="STL">Busch Stadium III</option>
-      <option value="TB">Tropicana Field</option>
+      <option value="BAL">Camden Yards</option>
+      <option value="AZ" selected>Chase Field</option>
+      <option value="NYM">Citi Field</option>
+      <option value="PHI">Citizens Bank Park</option>
+      <option value="DET">Comerica Field</option>
+      <option value="COL">Coors Field</option>
+      <option value="LAD">Dodger Stadium</option>
+      <option value="BOS">Fenway Park</option>
       <option value="TEX">Globe Life Field</option>
-      <option value="TOR">Rodgers Centre</option>
+      <option value="CWS">Gntd. Rate Field</option>
+      <option value="CIN">Great American Blpk</option>
+      <option value="KC">Kauffman Stadium</option>
+      <option value="MIA">Load Depot Field</option>
+      <option value="HOU">Minute Maid Park</option>
       <option value="WSH">Nationals Field</option>
+      <option value="OAK">Oakland</option>
+      <option value="SF">Oracle Park</option>
+      <option value="SD">Petco Park</option>
+      <option value="PIT">PNC Park</option>
+      <option value="CLE">Progressive Field</option>
+      <option value="TOR">Rodgers Centre</option>
+      <option value="MIN">Target Field</option>
+      <option value="TB">Tropicana Field</option>
+      <option value="ATL">Truist Field</option>
+      <option value="SEA">T-Mobile Park</option>
+      <option value="CHC">Wrigley Field</option>
+      <option value="NYY">Yankee Stadium II</option>
     </select>
     <div id="new-hit">New Hit</div>
   </div>
@@ -118,6 +118,7 @@
 
       <div class="field-wrapper">
         <label for="player-select-search">Player:</label>
+        <input type="text" id="player-text-search" class="select-parameter">
         <select list="player-select-search" name="Player" id="player-select-search" class="select-parameter">
           <option value="-1">Any</option>
         </select>
@@ -150,12 +151,15 @@
       </div> -->
 
     </div>
-    <div id="search-button">Search</div>
+    <div class="field-wrapper">
+      <div id="search-button">Search</div>
+      <div id="cancel-button">Cancel</div>
+    </div>
   </div>
 
   <div id="upload-help">
     <h1>Upload the downloaded CSV below:</h1>
-    <form >
+    <form>
       <input type="file" id="csv-file" name="filename">
     </form>
   </div>

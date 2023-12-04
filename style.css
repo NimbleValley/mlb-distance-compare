@@ -1,5 +1,6 @@
 html, body {
   margin: 0;
+  user-select: none;
 }
 
 canvas {
@@ -11,13 +12,12 @@ canvas {
 
 #control-container {
   display: flex;
-  left: 0;
-  top: 0;
+  left: 2.5vw;
+  top: 2.5vh;
   position: absolute;
   background-color: rgba(37, 33, 27, 0.575);
   z-index: 100;
   width: fit-content;
-  margin: 20px;
   padding: 1vw;
 }
 
@@ -66,6 +66,7 @@ select:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  cursor: progress;
 }
 
 #upload-help {
@@ -84,12 +85,12 @@ select:hover {
 
 #search-parameters {
   position: fixed;
-  width: 90vw;
-  height: 90vh;
+  width: 95vw;
+  height: 95vh;
   background-color: rgb(43, 39, 39);
   z-index: 1000;
-  left: 5vw;
-  top: 5vh;
+  left: 2.5vw;
+  top: 2.5vh;
   border: 2px beige solid;
   display: flex;
   flex-direction: column;
@@ -164,6 +165,27 @@ label {
   color: black;
 }
 
+#cancel-button {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 6vh;
+  text-align: center;
+  transition: background-color 0.25s, color 0.25s;
+  color: beige;
+  background-color: rgb(27, 27, 26);
+  padding: 1vw;
+  border: 2px beige solid;
+  width: fit-content;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#cancel-button:hover {
+  cursor: pointer;
+  background-color: rgb(184, 72, 72);
+  color: black;
+}
+
 h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 7.5vh;
@@ -231,4 +253,10 @@ input {
   background-color: beige;
   color: black;
   cursor: pointer;
+}
+
+#player-text-search {
+  margin: 0;
+  margin-right: 2vw;
+  width: 20vw;
 }
